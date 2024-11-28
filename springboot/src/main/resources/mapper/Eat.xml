@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.mapper.EatMapper">
+
+    <select id="listByCondition" resultType="com.example.springboot.entity.Eat">
+        select * from eat
+        <where>
+            <if test="name != null and name != ''">
+                name like concat('%', #{ name }, '%')
+            </if>
+            <if test="eatNo != null and eatNo != ''">
+                and eat_no = #{eatNo}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <insert id="save">
+        insert into eat(name, description, head, eat_date, eatCategory, eat_no, cover, score, nums)
+        values (#{name}, #{description}, #{head}, #{eatDate}, #{eatCategory}, #{eatNo}, #{cover}, #{score}, #{nums})
+    </insert>
+
+    <update id="updateById">
+
+        update eat
+        set name        = #{name},
+            description = #{description},
+            eat_date  = #{eatDate},
+            head        = #{head},
+            eatCategory    = #{eatCategory},
+            eat_no    = #{eatNo},
+            cover       = #{cover},
+            score       = #{score},
+            nums        = #{nums},
+            updatetime  = #{updatetime}
+        where id = #{id}
+    </update>
+
+    <update id="updateNumByNo">
+        update eat
+        set nums = nums + 1
+        where eat_no = #{eatNo}
+    </update>
+
+    <delete id="deleteById">
+        delete
+        from eat
+        where id = #{id}
+    </delete>
+
+    <select id="list" resultType="com.example.springboot.entity.Eat">
+        select *
+        from eat
+        order by id desc
+    </select>
+
+    <select id="getById" resultType="com.example.springboot.entity.Eat">
+        select *
+        from eat
+        where id = #{id}
+    </select>
+    <select id="getByNo" resultType="com.example.springboot.entity.Eat">
+        select *
+        from eat
+        where eat_no = #{eatNo}
+    </select>
+</mapper>

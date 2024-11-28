@@ -1,0 +1,14 @@
+* {
+    margin: 0;
+    padding: 0;
+    /* 设置盒状模型 */
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #eee;
+}
+
+th {
+    background-color: aliceblue !important;
+}
